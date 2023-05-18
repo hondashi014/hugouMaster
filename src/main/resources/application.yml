@@ -1,0 +1,29 @@
+spring:
+ thymeleaf:
+   cache: false
+ jmx:
+   enabled: false
+ datasource:
+   driver-class-name: com.mysql.cj.jdbc.Driver
+   url: jdbc:mysql://localhost:3306/hugou_master?servertimezone=Asia/Tokyo //データベース名に注意
+   username: root
+   password: root
+   
+mybatis:
+ configuration:
+   map-underscore-to-camel-case: true
+ mapper-locations:
+   classpath*:/com/gmail/hondashi014/hugouMaster/model/mapper/**/*.xml
+
+logging:
+  level:
+    org:
+      springframework: WARN
+      security: DEBUG
+    com:
+      gmail:
+        hondashi014:
+          hugouMaster:         
+            auth: DEBUG
+            model: 
+             mapper: DEBUG

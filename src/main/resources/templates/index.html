@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="~{partial/head::head}"></div>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">符号マスターへの道</a>
+			<ul class="nav">
+				<li class="nav-item" sec:authorize="!authenticated"><a th:href="@{/signUp}" class="nav-link">ユーザー登録</a></li>
+				<li class="nav-item" sec:authorize="!authenticated"><a th:href="@{/login}" class="nav-link">ログイン</a></li>
+				<li class="nav-item" sec:authorize="authenticated">
+					<form th:action="@{/logout}" method="post" name="logout">
+						<a class="nav-link" href="#" onclick="document.logout.submit();return false;">ログアウト</a>
+					</form>
+				</li>
+			</ul>
+		</nav>
+
+		<a href="https://book.mynavi.jp/shogi/detail/id=77758">符号の読み方(別サイトへ)<br></a>
+		<p th:text="${loginUser.getUserName()}"></p>
+		<select id = "game_mode">
+			<option value= "5" >5問</option>
+			<option value= "10" >10問</option>
+			<option value= "100" >100問</option>
+			<option value= "-1" >エンドレス</option>
+		</select>
+		
+		<a id="start" class="button"  onclick="gameStart()">スタート</a>
+		<a id="reset" class="button"  onclick="gameReset()">リセット</a>
+		<table id="board">
+		</table>
+		<div id="info">
+			<p id="seikai"></p>
+			<p id="result"></p>
+			<p id="seikairitsu"></p>
+			<p id="timer"></p>
+		</div>
+		
+		<form th:action="@{/hugouMaster/record/new}" method="post">
+			<input type="hidden" name="userId" id="userId" th:value="${loginUser.getId()}"/>
+			<input type="hidden" name="mode" id="mode"/>
+			<input type="hidden" name="userRecord" id="record"/>
+		  <input type="submit" value="OK" />
+		</form>
+
+	<table>
+	 <tr th:each="user: ${users}">
+	   <td th:text="${user.id}"></td>
+	   <td th:text="${user.password}"></td>
+	</table>	
+
+	</div>
+
+
+  <audio id="correct_se" preload="auto">
+    <source th:src="@{/js/soundEffect/correct.mp3}">
+  </audio>
+  <audio id="wrong_se" preload="auto">
+    <source th:src="@{/js/soundEffect/wrong.mp3}">
+  </audio>
+
+  <div th:replace="~{partial/script}"></div>
+
+</body>
+</html>
+

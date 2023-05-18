@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+ PUBLIC "-//mybatic.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.gmail.hondashi014.hugouMaster.model.mapper.TblRecordMapper">
+ 
+   <insert id="insert" useGeneratedKeys="true">
+     INSERT INTO tbl_record
+     (user_id, user_record, mode, created_at)
+     VALUES
+     (#{userId}, #{userRecord}, #{mode}, now());
+   </insert>
+ </mapper>

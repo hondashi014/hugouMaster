@@ -1,0 +1,45 @@
+create table mst_user (
+  id int(11) not null auto_increment,
+  user_id varchar(25) unique not null,
+  user_name varchar(25) not null,
+  password varchar(25) not null,
+  is_admin tinyint(1) not null default 0,
+  primary key (id)
+  )
+  engine=innodb default charset=utf8;
+  
+    
+    
+  create table tbl_record (
+    id int(11) not null auto_increment,
+    user_id int(11) not null,
+    user_record time not null,
+    mode enum('five', 'ten', 'hundred') not null,
+    created_at datetime not null default current_timestamp,
+    primary key (id),
+    foreign key(user_id)
+    references mst_user(id)
+    on update cascade
+    on delete cascade)
+    engine=InnoDB default charset=utf8 collate=utf8_unicode_ci;
+    
+    
+   insert into mst_user
+   (user_id, user_name, password, is_admin)
+   values
+   ('taro', 'Taro Yamada', 'taropw', 0),
+   ('jiro', 'JiroJiro',  'jiropw' ,0),
+   ('admin', 'Administrator', 'admin', 1);
+   
+
+   insert into tbl_record
+   (user_id, user_record, mode)
+   values
+   (1, '1000', 'hundred'),
+   (1, '1500', 'hundred'),
+   (1, '0120', 'five'),
+   (2, '0777', 'hundred'),
+   (2, '0500', 'five'),
+   (3, '5794', 'ten'),
+   (3, '0345', 'hundred'),
+   (3, '0100', 'five');
